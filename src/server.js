@@ -13,7 +13,7 @@ app.use(cookieSession({
 }));
 
 app.get('/', (req, res) => {
-  res.send('Hackaton Final');
+  res.send('Hackaton Final Diego');
 });
 
 // Endpoints
