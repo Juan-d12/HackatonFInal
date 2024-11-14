@@ -67,6 +67,12 @@ exports.logout = async(req, res) => {
 
 
 // CRUD
+// Encontrar todos los usuarios
+exports.findAllUsers = async(req, res) => {
+    const usuarios = await User.findAll();
+    return res.send(usuarios);
+};
+
 // Crear nuevo usuario
 exports.crearUsuario = async(req, res) => {
     // Validar que existe el body
@@ -124,8 +130,8 @@ exports.crearUsuario = async(req, res) => {
     });
 };
 
-// Encontrar todos los usuarios
-exports.findAllUsers = async(req, res) => {
-    const usuarios = await User.findAll();
-    return res.send(usuarios);
+// Encontrar todos los roles
+exports.findAllRoles = async(req, res) => {
+    const roles = await Role.findAll();
+    return res.send(roles);
 };
