@@ -13,11 +13,7 @@ exports.login = async(req, res) => {
         });
     };
 
-    const usuario = await User.findOne({ 
-        where: { 
-            email: req.body.email,
-        },
-    });
+    const usuario = await User.findOne({ where: { email: req.body.email} });
 
     if (!usuario) {
         return res.status(404).json({
@@ -33,7 +29,10 @@ exports.login = async(req, res) => {
         });
     };
 
-    // Generar token
+    // Recuperar rol
+    const userRole = await Role.findOne({ where: { id: usuario.RoleId} });
+
+    // Generar token y guardarlo en la sesion
     const token = jwt.sign({ id: usuario.id },
         process.env.SECRET_KEY_JWT,
         {
@@ -42,11 +41,13 @@ exports.login = async(req, res) => {
             expiresIn: '24h' // expira en 24 horas
         });
 
+    req.session.token = token;
+
     // Valores a retornar
     publicUser = {
         username: usuario.username,
         email: usuario.email,
-        token: token
+        role: userRole.role
     }
     return res.status(200).send(publicUser);
 };
@@ -61,8 +62,9 @@ exports.logout = async(req, res) => {
     }
     catch (err) {
         this.next(err);
-    }
-}
+    };
+};
+
 
 // CRUD
 // Crear nuevo usuario

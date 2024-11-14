@@ -5,6 +5,7 @@ module.exports = app => {
     router.post("/", controlador.crearUsuario);
     router.get("/", controlador.findAllUsers);
     router.post("/login", controlador.login);
+    router.post("/logout", controlador.logout);
     // router.get("/:name", users.findOne);
     // router.put("/:name", users.update);
     // router.delete("/:id", users.delete);
