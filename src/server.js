@@ -32,6 +32,7 @@ sequelize.authenticate().then(() => {
 
 Role.sync().then(() => {
   console.log('Roles table created or found successfully!');
+  inicializarRoles();
 }).catch((error) => {
   console.error('Unable to create Roles table : ', error);
 });
@@ -43,7 +44,7 @@ User.sync().then(() => {
 });
 
 
-// Inicializar los Roles
+// Funcion para inicializar los Roles
 async function inicializarRoles() {
   // admin role
   await Role.findOrCreate({
@@ -64,8 +65,6 @@ async function inicializarRoles() {
     console.log("Error -> " + err);
   });
 };
-
-inicializarRoles();
 
 
 app.listen(PORT, () => {

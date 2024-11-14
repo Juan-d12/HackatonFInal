@@ -26,20 +26,20 @@ exports.login = async(req, res) => {
     };
 
     // Validar password
-    const isValid = bcrypt.compareSync(req.body.password, usuario.password);
-    if (!isValid) {
+    const passwordIsValid = bcrypt.compareSync(req.body.password, usuario.password);
+    if (!passwordIsValid) {
         return res.status(401).json({
             message:"Invalid Password"
         });
     };
 
     // Generar token
-    const token = jwt.sign({ id: usuario.id, username: usuario.username, email: usuario.email },
+    const token = jwt.sign({ id: usuario.id },
         process.env.SECRET_KEY_JWT,
         {
             algorithm: 'HS256',
             allowInsecureKeySizes: true,
-            expiresIn: '1h' // expira en 1 hora
+            expiresIn: '24h' // expira en 24 horas
         });
 
     // Valores a retornar
@@ -50,6 +50,19 @@ exports.login = async(req, res) => {
     }
     return res.status(200).send(publicUser);
 };
+
+// Logout
+exports.logout = async(req, res) => {
+    try {
+        req.session = null;
+        return res.status(200).json({
+            message:"You have logged out!"
+        });
+    }
+    catch (err) {
+        this.next(err);
+    }
+}
 
 // CRUD
 // Crear nuevo usuario
@@ -70,29 +83,23 @@ exports.crearUsuario = async(req, res) => {
         });
     };
 
-    // Determinar rol ("user" por defecto)
     let roleId;
+    // Si no especifica determinar rol de usuario por defecto
     if (!req.body.RoleId) {
-        roleId= 2;   // user rol id = 2
+        const userRole = await Role.findOne({ where: { role: "user" } });
+        roleId = userRole.id;
     }
-    else 
-    {
-        // Verificar que el rol sea valido (admin o user)
-        let roleIsValid = false;
-        let validRoles = ["admin", "user"];
-        const role = req.body.RoleId;
-        for (let i = 0; i < validRoles.length; i++) {
-            if (role === validRoles[i]) {
-                roleIsValid = true;
-                roleId = i + 1;  // Asignar rol
-            };
-        };
-       
-        if (!roleIsValid) {
+    // Validar rol especificado
+    else {
+        const existRole = await Role.findOne({ where: { role: req.body.RoleId } });
+        
+        if (!existRole) {
             return res.status(400).json({
-                message:"Rol no válido"
+                message:"Rol no valido"
             });
         };
+
+        roleId = existRole.id;
     };
 
     const nuevoUsuario = {
@@ -103,7 +110,9 @@ exports.crearUsuario = async(req, res) => {
     };
 
     User.create(nuevoUsuario).then(data => {
-        res.send(data);
+        return res.status(200).json({
+            message:"User created successfully!"
+        });
     })
     .catch(err => {
         res.status(500).send({
