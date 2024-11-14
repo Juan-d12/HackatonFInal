@@ -10,7 +10,10 @@ const sequelize = new Sequelize(
   port: process.env.DB_PORT,
   dialect:'postgres',
   dialectOptions: {
-    ssl: process.env.DB_SSL == "true"
+    ssl: {
+      require: true,
+      rejectUnauthorized: false   // para que funcione el deploy en render
+    }
   }
 });
 
