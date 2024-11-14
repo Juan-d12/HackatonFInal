@@ -64,16 +64,42 @@ exports.crearUsuario = async(req, res) => {
     // Validar email
     const existUser = await User.findOne({ where: { email: req.body.email } });
 
-    if(existUser){
+    if (existUser) {
         return res.status(400).json({
             message:"Email ya está en uso"
         });
+    };
+
+    // Determinar rol ("user" por defecto)
+    let roleId;
+    if (!req.body.RoleId) {
+        roleId= 2;   // user rol id = 2
+    }
+    else 
+    {
+        // Verificar que el rol sea valido (admin o user)
+        let roleIsValid = false;
+        let validRoles = ["admin", "user"];
+        const role = req.body.RoleId;
+        for (let i = 0; i < validRoles.length; i++) {
+            if (role === validRoles[i]) {
+                roleIsValid = true;
+                roleId = i + 1;  // Asignar rol
+            };
+        };
+       
+        if (!roleIsValid) {
+            return res.status(400).json({
+                message:"Rol no válido"
+            });
+        };
     };
 
     const nuevoUsuario = {
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),   // hashed password
+        RoleId: roleId
     };
 
     User.create(nuevoUsuario).then(data => {
