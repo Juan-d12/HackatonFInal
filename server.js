@@ -23,6 +23,7 @@ require("./app/routes/auth.routes")(app);
 const sequelize = require('./app/models/index');
 const User = require('./app/models/user.model');
 const Role = require('./app/models/role.model');
+const Product = require('./app/models/product.model');
 
 sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');
@@ -30,6 +31,7 @@ sequelize.authenticate().then(() => {
   console.error('Unable to connect to the database: ', error);
 });
 
+// Inicializar las tablas
 Role.sync().then(() => {
   console.log('Roles table created or found successfully!');
   inicializarRoles();
@@ -41,6 +43,12 @@ User.sync().then(() => {
   console.log('Users table created or found successfully!');
 }).catch((error) => {
   console.error('Unable to create Users table : ', error);
+});
+
+Product.sync().then(() => {
+  console.log('Products table created or found successfully!');
+}).catch((error) => {
+  console.error('Unable to create Products table : ', error);
 });
 
 

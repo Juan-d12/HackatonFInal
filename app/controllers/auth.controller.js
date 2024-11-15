@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 require("dotenv").config();
 const User = require('../models/user.model');
 const Role = require('../models/role.model');
+const Product = require('../models/product.model');
 
 // Login
 exports.login = async(req, res) => {
@@ -66,7 +67,7 @@ exports.logout = async(req, res) => {
 };
 
 
-// CRUD
+// CRUD de los Usuarios
 // Encontrar todos los usuarios
 exports.findAllUsers = async(req, res) => {
     const usuarios = await User.findAll();
@@ -130,8 +131,18 @@ exports.crearUsuario = async(req, res) => {
     });
 };
 
+
+// CRUD de los Roles
 // Encontrar todos los roles
 exports.findAllRoles = async(req, res) => {
     const roles = await Role.findAll();
     return res.send(roles);
+};
+
+
+// CRUD de los productos
+// Listar todos los productos en la tienda
+exports.listarProductos = async(req, res) => {
+    const productos = await Product.findAll();
+    return res.send(productos);
 };
