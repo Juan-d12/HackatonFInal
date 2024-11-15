@@ -8,6 +8,7 @@ module.exports = app => {
     router.post("/Logout", controlador.logout);
     router.get("/Roles", controlador.findAllRoles);
     router.get("/Home", controlador.listarProductos);
+    router.post("/Producto", controlador.crearProducto);
     // router.get("/:name", users.findOne);
     // router.put("/:name", users.update);
     // router.delete("/:id", users.delete);

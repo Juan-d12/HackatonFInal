@@ -146,3 +146,33 @@ exports.listarProductos = async(req, res) => {
     const productos = await Product.findAll();
     return res.send(productos);
 };
+
+// Crear nuevo producto
+exports.crearProducto = async(req, res) => {
+    // Validar que existe el body
+    if (!req.body.title || !req.body.price || !req.body.category || !req.body.description || !req.body.image) {
+        res.status(401).json({
+            message:"Debe especificar title, price, category, description e image (url)"
+        });
+    };
+
+    const nuevoProducto = {
+        title: req.body.title,
+        price: req.body.price,
+        category: req.body.category,
+        description: req.body.description,
+        image: req.body.image
+    };
+
+    Product.create(nuevoProducto).then(data => {
+        return res.status(200).json({
+            message:"User created successfully!"
+        });
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while creating the Product."
+        });
+    });
+};
