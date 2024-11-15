@@ -156,6 +156,15 @@ exports.crearProducto = async(req, res) => {
         });
     };
 
+    // Validar titulo
+    const existProduct = await Product.findOne({ where: { title: req.body.title } });
+
+    if (existProduct) {
+        return res.status(400).json({
+            message:"El producto ya se encuentra en el catálogo"
+        });
+    };
+
     const nuevoProducto = {
         title: req.body.title,
         price: req.body.price,
@@ -166,7 +175,7 @@ exports.crearProducto = async(req, res) => {
 
     Product.create(nuevoProducto).then(data => {
         return res.status(200).json({
-            message:"User created successfully!"
+            message:"Product added successfully!"
         });
     })
     .catch(err => {

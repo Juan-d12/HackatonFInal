@@ -10,7 +10,7 @@ const userModel = sequelize.define("User",
         },
         email:{
             type:DataTypes.STRING,
-            unique:true,
+            unique: true,
         },
         password:{
             type: DataTypes.STRING,

@@ -6,6 +6,7 @@ const productModel = sequelize.define("Product",
         title: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         price:{
             type:DataTypes.FLOAT,
