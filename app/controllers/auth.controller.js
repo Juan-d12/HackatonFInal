@@ -38,7 +38,7 @@ exports.login = async(req, res) => {
         {
             algorithm: 'HS256',
             allowInsecureKeySizes: true,
-            expiresIn: 86400 // expira en 24 horas
+            expiresIn: '24h' // expira en 24 horas
         });
 
     req.session.token = token;
