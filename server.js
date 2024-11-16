@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 // Endpoints
 require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
 
 // Conectar a la base de datos
 const sequelize = require('./app/models/index');
