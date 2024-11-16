@@ -3,14 +3,16 @@ module.exports = app => {
     const controlador = require('../controllers/auth.controller');
 
     // User related routes
-    router.get("/Users", controlador.findAllUsers);
+    // router.get("/Users", controlador.findAllUsers);          done
     router.post("/Registro", controlador.crearUsuario);
     router.post("/Login", controlador.login);
     router.post("/Logout", controlador.logout);
-    router.get("/Roles", controlador.findAllRoles);
+    // router.get("/Roles", controlador.findAllRoles);          done
+
     // Product related routes
-    router.get("/Home", controlador.listarProductos);
-    router.post("/Producto", controlador.crearProducto);
+    // router.get("/Home", controlador.listarProductos);        done
+    // router.post("/Producto", controlador.crearProducto);     done
+
     // router.get("/:name", users.findOne);
     // router.put("/:name", users.update);
     // router.delete("/:id", users.delete);
