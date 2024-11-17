@@ -44,3 +44,27 @@ exports.isAdmin = async (req, res, next) => {
 
     return res.status(403).send({ message: "Requires Admin Role" });
 };
+
+// Verificar que es User
+exports.isUser = async (req, res, next) => {
+    if (!req.userId) {
+        return res.status(500).send({ message: "Login not detected" })
+    };
+
+    // Encontrar usuario
+    const usuario =  await User.findOne({ where: {id: req.userId} });
+
+    if (!usuario) {
+        return res.status(500).send({ message: "Failed to authenticate user" });
+    };
+    // Determinar si es User
+    const currentRole = await Role.findOne({ where: {id: usuario.RoleId } });
+    const userRole = await Role.findOne({ where: {role: "user"} });
+
+    if (currentRole.id === userRole.id) {
+        next();
+        return;
+    };
+
+    return res.status(403).send({ message: "Requires User Role" });
+};

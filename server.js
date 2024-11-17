@@ -25,6 +25,7 @@ const sequelize = require('./app/models/index');
 const User = require('./app/models/user.model');
 const Role = require('./app/models/role.model');
 const Product = require('./app/models/product.model');
+const Cart = require('./app/models/cart.model');
 
 sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');
@@ -50,6 +51,12 @@ Product.sync().then(() => {
   console.log('Products table created or found successfully!');
 }).catch((error) => {
   console.error('Unable to create Products table : ', error);
+});
+
+Cart.sync().then(() => {
+  console.log('Carts table created or found successfully!');
+}).catch((error) => {
+  console.error('Unable to create Carts table : ', error);
 });
 
 

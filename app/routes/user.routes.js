@@ -15,6 +15,19 @@ module.exports = function (app) {
 
     // Any User routes (requires only login)
 
+    // Only User routes
+    app.get(
+        "/api/Cart", 
+        [authJwt.verifyToken, authJwt.isUser], 
+        controlador.listarCarrito
+    );
+
+    app.post(
+        "/api/Cart", 
+        [authJwt.verifyToken, authJwt.isUser], 
+        controlador.addToCart
+    );
+
     // Only Admin routes
     app.get(
         "/api/Users", 

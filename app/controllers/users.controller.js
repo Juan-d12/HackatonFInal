@@ -1,9 +1,10 @@
 const User = require('../models/user.model');
 const Role = require('../models/role.model');
 const Product = require('../models/product.model');
+const Cart = require('../models/cart.model');
 
 // CRUD de los usuarios
-// Encontrar todos los usuarios
+// Encontrar todos los usuarios (requieres admin)
 exports.findAllUsers = async(req, res) => {
     const usuarios = await User.findAll();
     return res.send(usuarios);
@@ -11,7 +12,7 @@ exports.findAllUsers = async(req, res) => {
 
 
 // CRUD de los Roles
-// Encontrar todos los roles
+// Encontrar todos los roles (requieres admin)
 exports.findAllRoles = async(req, res) => {
     const roles = await Role.findAll();
     return res.send(roles);
@@ -19,13 +20,13 @@ exports.findAllRoles = async(req, res) => {
 
 
 // CRUD de los productos
-// Listar todos los productos en la tienda
+// Listar todos los productos en la tienda (all access)
 exports.listarProductos = async(req, res) => {
     const productos = await Product.findAll();
     return res.send(productos);
 };
 
-// Crear nuevo producto
+// Crear nuevo producto (requires admin)
 exports.crearProducto = async(req, res) => {
     // Validar que existe el body
     if (!req.body.title || !req.body.price || !req.body.category || !req.body.description || !req.body.image) {
@@ -60,6 +61,61 @@ exports.crearProducto = async(req, res) => {
         res.status(500).send({
             message:
                 err.message || "Some error occurred while creating the Product."
+        });
+    });
+};
+
+
+// CRUD del carrito de compras
+// Listar todos los productos en el carrito (requires same user)
+exports.listarCarrito = async (req, res) => {
+    // Encontrar el carrito de compras del usuario que hace la peticion (req.userId)
+    const carrito =  await Cart.findAll({ where: { UserId: req.userId } });
+    return res.send(carrito);
+};
+
+// Añadir producto al carrito (requires same user)
+exports.addToCart = async (req, res) => {
+    // Validar que existe al body
+    if (!req.body.productName) {
+        res.status(401).json({
+            message:"Debe especificar el nombre del producto (title)"
+        });
+    }
+
+    let cantidad;
+    // Si no especifica cantidad es 1 por defecto
+    if (!req.body.quantity) {
+        cantidad = 1;
+    }
+    else {
+        cantidad = req.body.quantity;
+    };
+
+    // Validar titulo del producto
+    const existProduct = await Product.findOne({ where: { title: req.body.productName } });
+
+    if (!existProduct) {
+        return res.status(400).json({
+            message:"El producto ingresado no es valido"
+        });
+    };
+
+    const nuevoCarrito = {
+        quantity: cantidad,
+        UserId: req.userId,
+        ProductId: existProduct.id,
+    };
+    
+    Cart.create(nuevoCarrito).then(data => {
+        return res.status(200).json({
+            message:"Product added successfully to the Cart!"
+        });
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while adding the Product to the Cart."
         });
     });
 };
