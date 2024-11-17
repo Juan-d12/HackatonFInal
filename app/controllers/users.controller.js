@@ -130,11 +130,3 @@ exports.addToCart = async (req, res) => {
         });
     });
 };
-
-// Drop Carts table (solo para testing)
-exports.dropCartsTable = async(req, res) => { Cart.drop().then(() => {
-        console.log('Carts table dropped successfully.');
-    }).catch((error) => {
-        console.log('Error dropping Users table:', error);
-    });
-};
