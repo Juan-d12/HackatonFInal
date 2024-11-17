@@ -101,6 +101,26 @@ exports.addToCart = async (req, res) => {
         });
     };
 
+    // Verificar si el produco ya se encontraba en el carrito
+    const productInCart = await Cart.findOne({ where: { UserId: req.userId, ProductId: existProduct.id } });
+
+    if (productInCart) {
+        // Modificar entrada existente
+        productInCart.quantity += cantidad;
+        productInCart.save().then(data => {
+            return res.status(200).json({
+                message:"Product added successfully to the Cart!"
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while adding the Product to the Cart."
+            });
+        });
+    };
+
+    // Crear nueva entrada
     const nuevoCarrito = {
         quantity: cantidad,
         UserId: req.userId,
