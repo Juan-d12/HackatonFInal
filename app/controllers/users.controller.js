@@ -107,17 +107,8 @@ exports.addToCart = async (req, res) => {
     if (productInCart) {
         // Modificar entrada existente
         productInCart.quantity += cantidad;
-        productInCart.save().then(data => {
-            return res.status(200).json({
-                message:"Product added successfully to the Cart!"
-            });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while adding the Product to the Cart."
-            });
-        });
+        await productInCart.save();
+        return res.send(productInCart);
     };
 
     // Crear nueva entrada
@@ -137,5 +128,13 @@ exports.addToCart = async (req, res) => {
             message:
                 err.message || "Some error occurred while adding the Product to the Cart."
         });
+    });
+};
+
+// Drop Carts table (solo para testing)
+exports.dropCartsTable = async(req, res) => { Cart.drop().then(() => {
+        console.log('Carts table dropped successfully.');
+    }).catch((error) => {
+        console.log('Error dropping Users table:', error);
     });
 };

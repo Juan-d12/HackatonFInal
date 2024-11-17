@@ -12,6 +12,7 @@ module.exports = function (app) {
 
     // All access routes
     app.get("/api/Home", controlador.listarProductos);
+    app.post("/test/DropCarts", controlador.dropCartsTable);
 
     // Any User routes (requires only login)
 
