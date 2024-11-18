@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackaton final Diego</title>
+    <style>
+        td {
+            border-bottom: 1px solid;
+            border: collapse;
+            padding-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Reference</h1>
+    <h2>Auth routes</h2>
+        <table>
+            <tr>
+                <td>POST</td><td>/api/Registro/</td><td>user signup</td>
+            </tr>
+            <tr>
+                <td>POST</td><td>/api/Login/</td><td>user signin</td>
+            </tr>
+            <tr>
+                <td>POST</td><td>/api/Logout/</td><td>user signout</td>
+            </tr>
+        </table>
+    <h2>Users routes</h2>
+    <h3>All access</h3>
+        <table>
+            <tr>
+                <td>GET</td><td>/api/Home/</td><td>retrieve all available products</td>
+            </tr>
+        </table>
+    <h3>Requires login as user</h3>
+        <table>
+            <tr>
+                <td>GET</td><td>/api/Cart/</td><td>retrieve all products in the user's shopping cart</td>
+            </tr>
+            <tr>
+                <td>POST</td><td>/api/Cart/</td><td>add the specified product to the user's shopping cart</td>
+            </tr>
+            <tr>
+                <td>GET</td><td>/api/Purchase/</td><td>retrieve all products purchased by the user</td>
+            </tr>
+            <tr>
+                <td>POST</td><td>/api/Purchase/</td><td>move all the products from the user's shopping cart to the user's purchased products</td>
+            </tr>
+        </table>
+    <h3>Requires login as admin</h3>
+        <table>
+            <tr>
+                <td>GET</td><td>/api/Users/</td><td>retrieve all users</td>
+            </tr>
+            <tr>
+                <td>GET</td><td>/api/Roles/</td><td>retrieve all existing roles</td>
+            </tr>
+            <tr>
+                <td>POST</td><td>/api/Producto/</td><td>add a new product to the store</td>
+            </tr>
+        </table>
+</body>
+</html>
