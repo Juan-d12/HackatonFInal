@@ -149,9 +149,9 @@ exports.purchase = async (req, res) => {
     let cart = [];
     for (let i = 0; i < carrito.lenght; i++) {
         cart[i] = {
-            quantity: carrito[i]['quantity'],
-            UserId: carrito[i]['UserId'],
-            ProductId: carrito[i]['ProductId']
+            quantity: carrito[i].quantity,
+            UserId: carrito[i].UserId,
+            ProductId: carrito[i].ProductId
         };
     };
 
