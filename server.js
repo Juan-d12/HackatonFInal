@@ -15,17 +15,9 @@ app.use(cookieSession({
 }));
 
 // Get index page
-app.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+app.get('/', function(req, res) {
+  res.sendFile('index.html');
 });
-
-/* app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));
-}); */
-
-/* app.get('/', (req, res) => {
-  res.send('Hackaton Final Diego');
-}); */
 
 // Endpoints
 require("./app/routes/auth.routes")(app);
