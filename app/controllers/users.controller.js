@@ -147,17 +147,13 @@ exports.purchase = async (req, res) => {
     const carrito = JSON.parse(JSON.stringify(currentCart));    // JSON truco
     // Dejar solo las columnas de quantity, UserId y ProductId
     let cart = [];
-    for (let i = 0; i < carrito.lenght; i++) {
+    for (let i = 0; i < carrito.length; i++) {
         cart.push({
             quantity: carrito[i].quantity,
             UserId: carrito[i].UserId,
             ProductId: carrito[i].ProductId
         });
     };
-
-    console.log(carrito);
-    console.log(carrito[i].quantity);
-    console.log(cart);
 
     // Añadir los productos del carrito de compras a la lista de productos comprados
     Compra.bulkCreate(cart).then(() => {
