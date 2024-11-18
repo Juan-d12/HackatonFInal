@@ -16,7 +16,7 @@ app.use(cookieSession({
 
 // Get index page
 app.get('/', function(req, res) {
-  res.sendFile('index.html');
+  res.sendFile('index.html', { root: __dirname });
 });
 
 // Endpoints
