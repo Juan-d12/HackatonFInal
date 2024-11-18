@@ -148,12 +148,14 @@ exports.purchase = async (req, res) => {
     // Dejar solo las columnas de quantity, UserId y ProductId
     let cart = [];
     for (let i = 0; i < carrito.lenght; i++) {
-        cart[i] = {
+        cart.push({
             quantity: carrito[i].quantity,
             UserId: carrito[i].UserId,
             ProductId: carrito[i].ProductId
-        };
+        });
     };
+
+    console.log(cart);
 
     // Añadir los productos del carrito de compras a la lista de productos comprados
     Compra.bulkCreate(cart).then(() => {
