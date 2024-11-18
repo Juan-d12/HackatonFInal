@@ -144,9 +144,10 @@ exports.listarCompras = async (req, res) => {
 // Mover productos del carrito a la lista de productos comprados (requires same user)
 exports.purchase = async (req, res) => {
     const currentCart = await Cart.findAll({ where: { UserId: req.userId } });
+    const carrito = JSON.parse(currentCart);
 
     // Añadir los productos del carrito de compras a la lista de productos comprados
-    Compra.bulkCreate(currentCart).then(() => {
+    Compra.bulkCreate(carrito, { fields: ['quantity', 'UserId', 'ProductId'],}).then(() => {
         // Vaciar el carrito de compras
         Cart.destroy({ where: { UserId: req.userId } });
     })
