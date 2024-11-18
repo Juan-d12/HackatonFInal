@@ -147,7 +147,7 @@ exports.purchase = async (req, res) => {
     const carrito = JSON.parse(JSON.stringify(currentCart));    // JSON truco
 
     // Añadir los productos del carrito de compras a la lista de productos comprados
-    Compra.bulkCreate(carrito, { fields: ['quantity', 'UserId', 'ProductId'],}).then(() => {
+    Compra.bulkCreate(carrito, { fields: ['quantity', 'state', 'UserId', 'ProductId'],}).then(() => {
         // Vaciar el carrito de compras
         Cart.destroy({ where: { UserId: req.userId } });
     })
