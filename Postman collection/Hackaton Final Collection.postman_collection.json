@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "b118c015-c97d-4937-b8a4-98949fc7b216",
+		"name": "Hackaton Final Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39829882"
+	},
+	"item": [
+		{
+			"name": "Home (muestra los productos)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Home",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registro (user signup)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testUser\",\n    \"email\": \"testEmail\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Registro",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login (user signin)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"testEmail\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Login",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart (agregar producto al carrito)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productName\": \"Mens Cotton Jacket\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Cart",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart (ver productos en el carrito)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Cart",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase (realizar compra)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Purchase",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase (ver compras realizadas)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Purchase",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout (user signout)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://hackatonfinalrenderdeploy.onrender.com/api/Logout",
+					"protocol": "https",
+					"host": [
+						"hackatonfinalrenderdeploy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"Logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
