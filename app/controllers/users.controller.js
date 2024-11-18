@@ -155,6 +155,8 @@ exports.purchase = async (req, res) => {
         });
     };
 
+    console.log(carrito);
+    console.log(carrito[i].quantity);
     console.log(cart);
 
     // Añadir los productos del carrito de compras a la lista de productos comprados
