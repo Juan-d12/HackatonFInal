@@ -15,8 +15,8 @@ app.use(cookieSession({
 }));
 
 // Get index page
-app.get('/', function(req, res) {
-  res.render('index');
+app.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
 });
 
 /* app.get('/', function(req, res) {
