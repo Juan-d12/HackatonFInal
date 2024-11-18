@@ -6,7 +6,6 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());    // Middlewares de express
 app.use(express.urlencoded({ extended: true }));    // Middlewares de express
-app.use(express.static(path.join(__dirname, 'public')));  // Middleware to serve static files in express
 
 app.use(cookieSession({
   name: 'session',
@@ -16,7 +15,7 @@ app.use(cookieSession({
 
 // Get index page
 app.get('/', function(req, res) {
-  res.sendFile('index.html', { root: __dirname });
+  res.sendFile('/app/public/index.html', { root: __dirname });
 });
 
 // Endpoints
