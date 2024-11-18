@@ -145,9 +145,18 @@ exports.listarCompras = async (req, res) => {
 exports.purchase = async (req, res) => {
     const currentCart = await Cart.findAll({ where: { UserId: req.userId } });
     const carrito = JSON.parse(JSON.stringify(currentCart));    // JSON truco
+    // Dejar solo las columnas de quantity, UserId y ProductId
+    let cart = [];
+    for (let i = 0; i < carrito.lenght; i++) {
+        cart[i] = {
+            quantity: carrito[i]['quantity'],
+            UserId: carrito[i]['UserId'],
+            ProductId: carrito[i]['ProductId']
+        };
+    };
 
     // Añadir los productos del carrito de compras a la lista de productos comprados
-    Compra.bulkCreate(carrito, { fields: ['quantity', 'state', 'UserId', 'ProductId'],}).then(() => {
+    Compra.bulkCreate(cart).then(() => {
         // Vaciar el carrito de compras
         Cart.destroy({ where: { UserId: req.userId } });
     })
