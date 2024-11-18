@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const Role = require('../models/role.model');
 const Product = require('../models/product.model');
 const Cart = require('../models/cart.model');
+const Compra = require('../models/compra.model');
 
 // CRUD de los usuarios
 // Encontrar todos los usuarios (requieres admin)
@@ -127,6 +128,37 @@ exports.addToCart = async (req, res) => {
         res.status(500).send({
             message:
                 err.message || "Some error occurred while adding the Product to the Cart."
+        });
+    });
+};
+
+
+// CRUD de las compras realizadas
+// Listar todos los productos comprados (requires same user)
+exports.listarCompras = async (req, res) => {
+    // Encontrar las compras del usuario que hace la peticion (req.userId)
+    const compras = await Compra.findAll({ where: { UserId: req.userId } });
+    res.send(compras);
+};
+
+// Mover productos del carrito a la lista de productos comprados (requires same user)
+exports.purchase = async (req, res) => {
+    const currentCart = await Cart.findAll({ where: { UserId: req.userId } });
+
+    // Añadir los productos del carrito de compras a la lista de productos comprados
+    Compra.bulkCreate(currentCart).then(() => {
+        // Vaciar el carrito de compras
+        Cart.destroy({ where: { UserId: req.userId } });
+    })
+    .then(data => {
+        return res.status(200).json({
+            message:"Purchase successful!"
+        });
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while purchasing the products."
         });
     });
 };

@@ -28,6 +28,18 @@ module.exports = function (app) {
         controlador.addToCart
     );
 
+    app.get(
+        "/api/Purchase", 
+        [authJwt.verifyToken, authJwt.isUser], 
+        controlador.listarCompras
+    );
+
+    app.post(
+        "/api/Purchase", 
+        [authJwt.verifyToken, authJwt.isUser], 
+        controlador.purchase
+    );    
+
     // Only Admin routes
     app.get(
         "/api/Users", 
