@@ -11,8 +11,8 @@ const compraModel = sequelize.define("Compra",
         },
         state: {
             type: DataTypes.STRING,
-            allowNull: false,
             defaultValue: 'Pendiente de envio',
+            allowNull: false,
         },
     },
     {
