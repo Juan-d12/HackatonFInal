@@ -14,6 +14,11 @@ app.use(cookieSession({
   httpOnly: true,
 }));
 
+// Get index page
+app.get('/', function(req, res) {
+  res.render('index');
+});
+
 /* app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 }); */
